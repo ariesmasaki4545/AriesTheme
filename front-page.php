@@ -28,8 +28,8 @@ endif;
    <div class="hero-content" style="text-align: <?php echo esc_attr(get_theme_mod('aries_hero_alignment', 'center')); ?>;">
 
         <p class="hero-label">
-            ORIGINAL WEB DESIGN
-        </p>
+    <?php echo esc_html(get_theme_mod('aries_shop_name', '店舗名')); ?>
+</p>
 
         <h1>
          

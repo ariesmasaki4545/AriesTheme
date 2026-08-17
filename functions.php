@@ -51,7 +51,7 @@ function aries_theme_customize($wp_customize) {
             'title'    => 'ヘッダー設定',
             'priority' => 20,
         )
-    );/*/* ナビゲーション配置 */
+    );/* ナビゲーション配置 */
 
 $wp_customize->add_setting(
     'aries_nav_alignment',
@@ -225,29 +225,7 @@ function aries_service_customize($wp_customize) {
             )
         );
 
-    /* サービス見出し配置 */
-
-$wp_customize->add_setting(
-    'aries_service_alignment',
-    array(
-        'default'           => 'center',
-        'sanitize_callback' => 'sanitize_key',
-    )
-);
-
-$wp_customize->add_control(
-    'aries_service_alignment',
-    array(
-        'label'   => 'サービス見出し配置',
-        'section' => 'aries_home_section',
-        'type'    => 'select',
-        'choices' => array(
-            'left'   => '左寄せ',
-            'center' => '中央寄せ',
-            'right'  => '右寄せ',
-        ),
-    )
-);/* SERVICE見出し */
+/* SERVICE見出し */
 
 $wp_customize->add_setting(
     'aries_service_label',
@@ -1177,4 +1155,104 @@ add_action(
     'wp_head',
     'aries_hero_alignment_style'
 
+    );/* =========================
+   店舗基本情報
+========================= */
+
+function aries_shop_info_customize($wp_customize) {
+
+    // 店名
+    $wp_customize->add_setting(
+        'aries_shop_name',
+        array(
+            'default' => '店舗名',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
     );
+
+    $wp_customize->add_control(
+        'aries_shop_name',
+        array(
+            'label' => '店名',
+            'section' => 'title_tagline',
+            'type' => 'text',
+        )
+    );
+
+    // キャッチコピー
+    $wp_customize->add_setting(
+        'aries_shop_catchcopy',
+        array(
+            'default' => 'こだわりの料理を、あなたへ。',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_shop_catchcopy',
+        array(
+            'label' => 'キャッチコピー',
+            'section' => 'title_tagline',
+            'type' => 'text',
+        )
+    );
+
+    // 電話番号
+    $wp_customize->add_setting(
+        'aries_shop_phone',
+        array(
+            'default' => '000-0000-0000',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_shop_phone',
+        array(
+            'label' => '電話番号',
+            'section' => 'title_tagline',
+            'type' => 'text',
+        )
+    );
+
+    // 住所
+    $wp_customize->add_setting(
+        'aries_shop_address',
+        array(
+            'default' => '〒000-0000 新潟県○○市○○',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_shop_address',
+        array(
+            'label' => '住所',
+            'section' => 'title_tagline',
+            'type' => 'text',
+        )
+    );
+
+    // 営業時間
+    $wp_customize->add_setting(
+        'aries_shop_hours',
+        array(
+            'default' => '11:00〜21:00',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_shop_hours',
+        array(
+            'label' => '営業時間',
+            'section' => 'title_tagline',
+            'type' => 'text',
+        )
+    );
+}
+
+add_action(
+    'customize_register',
+    'aries_shop_info_customize'
+);

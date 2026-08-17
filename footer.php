@@ -1,55 +1,62 @@
-<footer style="background:#111;color:#fff;padding:20px;text-align:center;">
-    © <?php echo date('Y'); ?> AriesTheme
-<nav class="footer-navigation">
+<footer class="site-footer">
 
-    <a href="<?php echo esc_url(home_url('/')); ?>">
-        ホーム
-    </a>
+    <div class="footer-copyright">
+        © <?php echo date('Y'); ?> AriesTheme
+    </div>
 
-    <a href="<?php echo esc_url(home_url('/#about')); ?>">
-        私たちについて
-    </a>
+    <nav class="footer-navigation">
 
-    <a href="<?php echo esc_url(home_url('/#service')); ?>">
-        サービス
-    </a>
+        <a href="<?php echo esc_url(home_url('/')); ?>">
+            ホーム
+        </a>
 
-    <a href="<?php echo esc_url(home_url('/#works')); ?>">
-        制作実績
-    </a>
+        <a href="<?php echo esc_url(home_url('/#about')); ?>">
+            私たちについて
+        </a>
 
-    <a href="<?php echo esc_url(home_url('/#contact')); ?>">
-        お問い合わせ
-    </a>
+        <a href="<?php echo esc_url(home_url('/#service')); ?>">
+            サービス
+        </a>
 
-</nav><?php
-$phone = get_theme_mod('aries_phone');
-$address = get_theme_mod('aries_address');
-?>
+        <a href="<?php echo esc_url(home_url('/#works')); ?>">
+            制作実績
+        </a>
 
-<div class="footer-business-info">
+        <a href="<?php echo esc_url(home_url('/#contact')); ?>">
+            お問い合わせ
+        </a>
 
-    <?php if ($phone) : ?>
+    </nav>
 
-        <p>
-            TEL：
-            <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>">
-                <?php echo esc_html($phone); ?>
-            </a>
-        </p>
+    <?php
+    $phone = get_theme_mod('aries_phone');
+    $address = get_theme_mod('aries_address');
+    ?>
 
-    <?php endif; ?>
+    <div class="footer-business-info">
 
+        <?php if ($phone) : ?>
 
-    <?php if ($address) : ?>
+            <p>
+                TEL：
+                <a href="tel:<?php echo esc_attr(preg_replace('/[^0-9+]/', '', $phone)); ?>">
+                    <?php echo esc_html($phone); ?>
+                </a>
+            </p>
 
-        <p>
-            <?php echo nl2br(esc_html($address)); ?>
-        </p>
+        <?php endif; ?>
 
-    <?php endif; ?>
+        <?php if ($address) : ?>
 
-</div></footer>
+            <p>
+                <?php echo nl2br(esc_html($address)); ?>
+            </p>
+
+        <?php endif; ?>
+
+    </div>
+
+</footer>
 
 <?php wp_footer(); ?>
 
