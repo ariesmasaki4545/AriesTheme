@@ -168,7 +168,7 @@ $wp_customize->add_control(
         )
     );
 
-    $wp_customize->add_control(
+        $wp_customize->add_control(
         'aries_hero_text',
         array(
             'label'       => 'ファーストビュー説明文',
@@ -178,7 +178,61 @@ $wp_customize->add_control(
         )
     );
 
-}
+/* Heroボタン名 */
+
+$wp_customize->add_setting(
+    'aries_hero_button',
+    array(
+        'default'           => 'お問い合わせ',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'aries_hero_button',
+    array(
+        'label'   => 'ファーストビューボタン名',
+        'section' => 'aries_home_section',
+        'type'    => 'text',
+    )
+);
+
+/* HeroボタンURL */
+
+$wp_customize->add_setting(
+    'aries_hero_button_url',
+    array(
+        'default'           => '#contact',
+        'sanitize_callback' => 'esc_url_raw',
+    )
+);
+
+$wp_customize->add_control(
+    'aries_hero_button_url',
+    array(
+        'label'       => 'ファーストビューボタンURL',
+        'description' => 'お問い合わせ・予約ページなどのURLを入力できます。',
+        'section'     => 'aries_home_section',
+        'type'        => 'url',
+    )
+);/* Heroラベル */
+
+$wp_customize->add_setting(
+    'aries_hero_label',
+    array(
+        'default'           => 'ORIGINAL WEB DESIGN',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'aries_hero_label',
+    array(
+        'label'   => 'ファーストビューラベル',
+        'section' => 'aries_home_section',
+        'type'    => 'text',
+    )
+);}
 
 add_action(
     'customize_register',
@@ -399,187 +453,68 @@ $wp_customize->add_control(
         'section' => 'aries_home_section',
         'type'    => 'text',
     )
+);/* ABOUT画像 */
+
+$wp_customize->add_setting(
+    'aries_about_image',
+    array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+    )
+);
+
+$wp_customize->add_control(
+    new WP_Customize_Media_Control(
+        $wp_customize,
+        'aries_about_image',
+        array(
+            'label'     => 'ABOUT画像',
+            'section'   => 'aries_home_section',
+            'mime_type' => 'image',
+        )
+    )
+);/* ABOUTボタン */
+
+$wp_customize->add_setting(
+    'aries_about_button',
+    array(
+        'default'           => '予約・お問い合わせはこちら',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
+);
+
+$wp_customize->add_control(
+    'aries_about_button',
+    array(
+        'label'   => 'ABOUTボタン名',
+        'section' => 'aries_home_section',
+        'type'    => 'text',
+    )
+);/* ABOUTボタンURL */
+
+$wp_customize->add_setting(
+    'aries_about_button_url',
+    array(
+        'default'           => '#reservation',
+        'sanitize_callback' => 'esc_url_raw',
+    )
+);
+
+$wp_customize->add_control(
+    'aries_about_button_url',
+    array(
+        'label'       => 'ABOUTボタンURL',
+        'description' => '予約・お問い合わせ先のURLを入力できます。',
+        'section'     => 'aries_home_section',
+        'type'        => 'url',
+    )
 );}
 
 add_action(
     'customize_register',
     'aries_about_customize'
 );/* =========================
-   WORKS設定
-========================= */
-
-function aries_works_customize($wp_customize) {
-
-    for ($i = 1; $i <= 3; $i++) {
-
-        $wp_customize->add_setting(
-            'aries_work_' . $i . '_category',
-            array(
-                'default' => 'WORK ' . $i,
-                'sanitize_callback' => 'sanitize_text_field',
-            )
-        );
-
-        $wp_customize->add_control(
-            'aries_work_' . $i . '_category',
-            array(
-                'label'   => '制作実績 ' . $i . ' カテゴリー',
-                'section' => 'aries_home_section',
-                'type'    => 'text',
-            )
-        );
-
-
-        $wp_customize->add_setting(
-            'aries_work_' . $i . '_title',
-            array(
-                'default' => '制作実績 ' . $i,
-                'sanitize_callback' => 'sanitize_text_field',
-            )
-        );
-
-        $wp_customize->add_control(
-            'aries_work_' . $i . '_title',
-            array(
-                'label'   => '制作実績 ' . $i . ' タイトル',
-                'section' => 'aries_home_section',
-                'type'    => 'text',
-            )
-        );
-
-
-        $wp_customize->add_setting(
-            'aries_work_' . $i . '_text',
-            array(
-                'default' => '制作実績の説明です。',
-                'sanitize_callback' => 'sanitize_textarea_field',
-            )
-        );
-
-        $wp_customize->add_control(
-            'aries_work_' . $i . '_text',
-            array(
-                'label'   => '制作実績 ' . $i . ' 説明',
-                'section' => 'aries_home_section',
-                'type'    => 'textarea',
-            )
-        );
-
-        /* WORKS見出し配置 */
-
-    $wp_customize->add_setting(
-        'aries_works_alignment',
-        array(
-            'default'           => 'center',
-            'sanitize_callback' => 'sanitize_text_field',
-        )
-    );
-
-    $wp_customize->add_control(
-        'aries_works_alignment',
-        array(
-            'label'   => 'WORKS見出し配置',
-            'section' => 'aries_home_section',
-            'type'    => 'select',
-            'choices' => array(
-                'left'   => '左寄せ',
-                'center' => '中央寄せ',
-                'right'  => '右寄せ',
-            ),
-        )
-    );/* WORKSラベル */
-
-$wp_customize->add_setting(
-    'aries_works_label',
-    array(
-        'default'           => 'WORKS',
-        'sanitize_callback' => 'sanitize_text_field',
-    )
-);
-
-$wp_customize->add_control(
-    'aries_works_label',
-    array(
-        'label'   => 'WORKSラベル',
-        'section' => 'aries_home_section',
-        'type'    => 'text',
-    )
-);/* WORKSタイトル */
-
-$wp_customize->add_setting(
-    'aries_works_title',
-    array(
-        'default'           => '制作実績',
-        'sanitize_callback' => 'sanitize_text_field',
-    )
-);
-
-$wp_customize->add_control(
-    'aries_works_title',
-    array(
-        'label'   => 'WORKSタイトル',
-        'section' => 'aries_home_section',
-        'type'    => 'text',
-    )
-);/* WORKS説明文 */
-
-$wp_customize->add_setting(
-    'aries_works_description',
-    array(
-        'default'           => 'これまでに制作したホームページをご紹介します。',
-        'sanitize_callback' => 'sanitize_textarea_field',
-    )
-);
-
-$wp_customize->add_control(
-    'aries_works_description',
-    array(
-        'label'   => 'WORKS説明文',
-        'section' => 'aries_home_section',
-        'type'    => 'textarea',
-    )
-);}
-
-}
-
-add_action(
-    'customize_register',
-    'aries_works_customize'
-);/* =========================
-   WORKS 画像設定
-========================= */
-
-function aries_works_image_customize($wp_customize) {
-
-    for ($i = 1; $i <= 3; $i++) {
-
-        $wp_customize->add_setting(
-            'aries_work_' . $i . '_image',
-            array(
-                'default'           => '',
-                'sanitize_callback' => 'absint',
-            )
-        );
-
-        $wp_customize->add_control(
-            new WP_Customize_Media_Control(
-                $wp_customize,
-                'aries_work_' . $i . '_image',
-                array(
-                    'label'       => '制作実績 ' . $i . ' 画像',
-                    'section'     => 'aries_home_section',
-                    'mime_type'   => 'image',
-                    'description' => '制作実績 ' . $i . ' に表示する画像を選択してください。',
-                )
-            )
-        );
-    }
-}
-
-add_action(
-    'customize_register',
-    'aries_works_image_customize'
-);/* =========================
+  /* =========================
  * CONTACT 設定
  * ========================= */
 
@@ -587,7 +522,6 @@ add_action(
     'customize_register',
     'aries_contact_customize'
 );
-
 function aries_contact_customize($wp_customize) {
 
     $settings = array(
@@ -671,84 +605,24 @@ $wp_customize->add_control(
         'section' => 'aries_home_section',
         'type'    => 'text',
     )
-);}/* =========================
- * WORKS テキスト設定
- * ========================= */
+);/* CONTACTボタン名 */
 
-add_action(
-    'customize_register',
-    'aries_works_text_customize'
+$wp_customize->add_setting(
+    'aries_contact_button',
+    array(
+        'default'           => 'メールでお問い合わせ',
+        'sanitize_callback' => 'sanitize_text_field',
+    )
 );
 
-function aries_works_text_customize($wp_customize) {
-
-    $settings = array(
-
-        'aries_work_1_category' => array(
-            'default' => 'WEB DESIGN',
-            'label'   => 'WORKS 01 カテゴリー',
-        ),
-
-        'aries_work_1_title' => array(
-            'default' => '美容サロンホームページ',
-            'label'   => 'WORKS 01 タイトル',
-        ),
-
-        'aries_work_1_text' => array(
-            'default' => 'サロンの魅力やサービスを分かりやすく伝える、オリジナルホームページ。',
-            'label'   => 'WORKS 01 説明文',
-        ),
-
-        'aries_work_2_category' => array(
-            'default' => 'WEB DESIGN',
-            'label'   => 'WORKS 02 カテゴリー',
-        ),
-
-        'aries_work_2_title' => array(
-            'default' => '店舗ホームページ',
-            'label'   => 'WORKS 02 タイトル',
-        ),
-
-        'aries_work_2_text' => array(
-            'default' => 'お店の世界観やサービスを整理し、来店につながるホームページ。',
-            'label'   => 'WORKS 02 説明文',
-        ),
-
-        'aries_work_3_category' => array(
-            'default' => 'CORPORATE',
-            'label'   => 'WORKS 03 カテゴリー',
-        ),
-
-        'aries_work_3_title' => array(
-            'default' => '企業ホームページ',
-            'label'   => 'WORKS 03 タイトル',
-        ),
-
-        'aries_work_3_text' => array(
-            'default' => '企業の強みやサービスを分かりやすく伝えるコーポレートサイト。',
-            'label'   => 'WORKS 03 説明文',
-        ),
-    );
-
-    foreach ($settings as $id => $data) {
-
-        $wp_customize->add_setting(
-            $id,
-            array(
-                'default'           => $data['default'],
-                'sanitize_callback' => 'sanitize_textarea_field',
-            )
-        );
-
-        $wp_customize->add_control(
-            $id,
-            array(
-                'label'    => $data['label'],
-                'section'  => 'aries_home_section',
-                'type'     => 'textarea',
-            )
-        );
-    }
+$wp_customize->add_control(
+    'aries_contact_button',
+    array(
+        'label'   => 'お問い合わせボタン名',
+        'section' => 'aries_home_section',
+        'type'    => 'text',
+    )
+);}/* 
 }/* =========================
  * ヘッダー配置設定
  * ========================= */
@@ -791,10 +665,7 @@ function aries_header_customize($wp_customize) {
             'default' => 'サービス',
             'label'   => 'ナビゲーション SERVICE',
         ),
-        'works' => array(
-            'default' => '制作実績',
-            'label'   => 'ナビゲーション WORKS',
-        ),
+        
         'contact' => array(
             'default' => 'お問い合わせ',
             'label'   => 'ナビゲーション CONTACT',
@@ -1250,9 +1121,567 @@ function aries_shop_info_customize($wp_customize) {
             'type' => 'text',
         )
     );
+        // 定休日
+    $wp_customize->add_setting(
+        'aries_shop_holiday',
+        array(
+            'default'           => '毎週火曜日',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_shop_holiday',
+        array(
+            'label'   => '定休日',
+            'section' => 'title_tagline',
+            'type'    => 'text',
+        )
+    );
 }
 
 add_action(
     'customize_register',
     'aries_shop_info_customize'
+);/* =========================
+   メニュー設定
+========================= */
+/* =========================
+   メニュー設定
+========================= */
+
+function aries_menu_customize($wp_customize) {
+
+    // メニューセクション
+    $wp_customize->add_section(
+        'aries_menu_section',
+        array(
+            'title'    => 'メニュー',
+            'priority' => 30,
+        )
+    );
+
+    // メニューラベル
+    $wp_customize->add_setting(
+        'aries_menu_label',
+        array(
+            'default'           => 'MENU',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_menu_label',
+        array(
+            'label'   => 'メニュー ラベル',
+            'section' => 'aries_menu_section',
+            'type'    => 'text',
+        )
+    );
+
+    // メニュー見出し
+    $wp_customize->add_setting(
+        'aries_menu_title',
+        array(
+            'default'           => 'メニュー',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_menu_title',
+        array(
+            'label'   => 'メニュー 見出し',
+            'section' => 'aries_menu_section',
+            'type'    => 'text',
+        )
+    );
+
+    // メニュー1〜6
+    for ($i = 1; $i <= 6; $i++) {
+
+        // メニュー名
+        $wp_customize->add_setting(
+            'aries_menu_' . $i . '_name',
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            )
+        );
+
+        $wp_customize->add_control(
+            'aries_menu_' . $i . '_name',
+            array(
+                'label'   => 'メニュー ' . $i . ' 名前',
+                'section' => 'aries_menu_section',
+                'type'    => 'text',
+            )
+        );
+
+        // 説明
+        $wp_customize->add_setting(
+            'aries_menu_' . $i . '_description',
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_textarea_field',
+            )
+        );
+
+        $wp_customize->add_control(
+            'aries_menu_' . $i . '_description',
+            array(
+                'label'   => 'メニュー ' . $i . ' 説明',
+                'section' => 'aries_menu_section',
+                'type'    => 'textarea',
+            )
+        );
+
+        // 価格
+        $wp_customize->add_setting(
+            'aries_menu_' . $i . '_price',
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            )
+        );
+
+        $wp_customize->add_control(
+            'aries_menu_' . $i . '_price',
+            array(
+                'label'   => 'メニュー ' . $i . ' 価格',
+                'section' => 'aries_menu_section',
+                'type'    => 'text',
+            )
+        );
+
+        // 写真
+        $wp_customize->add_setting(
+            'aries_menu_' . $i . '_image',
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'absint',
+            )
+        );
+
+        $wp_customize->add_control(
+            new WP_Customize_Media_Control(
+                $wp_customize,
+                'aries_menu_' . $i . '_image',
+                array(
+                    'label'     => 'メニュー ' . $i . ' 写真',
+                    'section'   => 'aries_menu_section',
+                    'mime_type' => 'image',
+                )
+            )
+        );
+
+        // おすすめ設定
+        $wp_customize->add_setting(
+            'aries_menu_' . $i . '_recommended',
+            array(
+                'default'           => false,
+                'sanitize_callback' => 'wp_validate_boolean',
+            )
+        );
+
+        $wp_customize->add_control(
+            'aries_menu_' . $i . '_recommended',
+            array(
+                'label'   => 'メニュー ' . $i . ' をおすすめにする',
+                'section' => 'aries_menu_section',
+                'type'    => 'checkbox',
+            )
+        );
+    }
+}
+
+add_action(
+    'customize_register',
+    'aries_menu_customize'
+);/* =========================
+   店舗ギャラリー設定
+========================= */
+
+function aries_gallery_customize($wp_customize) {
+
+    $wp_customize->add_section(
+        'aries_gallery_section',
+        array(
+            'title'    => '店舗ギャラリー',
+            'priority' => 40,
+        )
+    );
+
+    for ($i = 1; $i <= 6; $i++) {
+
+        $wp_customize->add_setting(
+            'aries_gallery_' . $i,
+            array(
+                'default'           => '',
+                'sanitize_callback' => 'absint',
+            )
+        );
+
+        $wp_customize->add_control(
+            new WP_Customize_Media_Control(
+                $wp_customize,
+                'aries_gallery_' . $i,
+                array(
+                    'label'     => 'ギャラリー写真 ' . $i,
+                    'section'   => 'aries_gallery_section',
+                    'mime_type' => 'image',
+                )
+            )
+        );
+    }
+}
+
+add_action(
+    'customize_register',
+    'aries_gallery_customize'
+);/* =========================
+   ギャラリー見出し設定
+========================= */
+
+function aries_gallery_heading_customize($wp_customize) {
+
+    $wp_customize->add_setting(
+        'aries_gallery_label',
+        array(
+            'default'           => 'GALLERY',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_gallery_label',
+        array(
+            'label'   => 'ギャラリー ラベル',
+            'section' => 'aries_gallery_section',
+            'type'    => 'text',
+        )
+    );
+
+    $wp_customize->add_setting(
+        'aries_gallery_title',
+        array(
+            'default'           => '店舗ギャラリー',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_gallery_title',
+        array(
+            'label'   => 'ギャラリー 見出し',
+            'section' => 'aries_gallery_section',
+            'type'    => 'text',
+        )
+    );
+}
+
+add_action(
+    'customize_register',
+    'aries_gallery_heading_customize'
+);/* =========================
+   アクセス設定
+========================= */
+
+function aries_access_customize($wp_customize) {
+
+    $wp_customize->add_section(
+        'aries_access_section',
+        array(
+            'title'    => 'アクセス',
+            'priority' => 50,
+        )
+    );
+
+    // アクセス ラベル
+    $wp_customize->add_setting(
+        'aries_access_label',
+        array(
+            'default'           => 'ACCESS',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_access_label',
+        array(
+            'label'   => 'アクセス ラベル',
+            'section' => 'aries_access_section',
+            'type'    => 'text',
+        )
+    );
+
+    // アクセス 見出し
+    $wp_customize->add_setting(
+        'aries_access_title',
+        array(
+            'default'           => 'アクセス',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_access_title',
+        array(
+            'label'   => 'アクセス 見出し',
+            'section' => 'aries_access_section',
+            'type'    => 'text',
+        )
+    );
+
+    // GoogleマップURL
+    $wp_customize->add_setting(
+        'aries_access_map_url',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_access_map_url',
+        array(
+            'label'       => 'Googleマップ埋め込みURL',
+            'description' => 'Googleマップの「地図を埋め込む」から取得したURLを入力してください。',
+            'section'     => 'aries_access_section',
+            'type'        => 'url',
+        )
+    );
+}
+
+add_action(
+    'customize_register',
+    'aries_access_customize'
+);/* =========================
+   予約・問い合わせ設定
+========================= */
+
+function aries_reservation_customize($wp_customize) {
+
+    $wp_customize->add_section(
+        'aries_reservation_section',
+        array(
+            'title'    => '予約・お問い合わせ',
+            'priority' => 60,
+        )
+    );
+
+    // ラベル
+    $wp_customize->add_setting(
+        'aries_reservation_label',
+        array(
+            'default'           => 'RESERVATION',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_reservation_label',
+        array(
+            'label'   => '予約 ラベル',
+            'section' => 'aries_reservation_section',
+            'type'    => 'text',
+        )
+    );
+
+    // 見出し
+    $wp_customize->add_setting(
+        'aries_reservation_title',
+        array(
+            'default'           => 'ご予約・お問い合わせ',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_reservation_title',
+        array(
+            'label'   => '予約 見出し',
+            'section' => 'aries_reservation_section',
+            'type'    => 'text',
+        )
+    );
+
+    // ボタン名
+    $wp_customize->add_setting(
+        'aries_reservation_button',
+        array(
+            'default'           => '電話で予約する',
+            'sanitize_callback' => 'sanitize_text_field',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_reservation_button',
+        array(
+            'label'   => '予約ボタン名',
+            'section' => 'aries_reservation_section',
+            'type'    => 'text',
+        )
+    );
+
+    // 予約URL
+    $wp_customize->add_setting(
+        'aries_reservation_url',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_reservation_url',
+        array(
+            'label'       => '予約URL',
+            'description' => '予約サイト・LINE・フォームなどのURLを入力できます。',
+            'section'     => 'aries_reservation_section',
+            'type'        => 'url',
+        )
+    );/* CONTACTボタンURL */
+
+$wp_customize->add_setting(
+    'aries_contact_button_url',
+    array(
+        'default'           => '',
+        'sanitize_callback' => 'esc_url_raw',
+    )
+);
+
+$wp_customize->add_control(
+    'aries_contact_button_url',
+    array(
+        'label'       => 'お問い合わせボタンURL',
+        'description' => 'メール・LINE・問い合わせフォームなどのURLを入力できます。',
+        'section'     => 'aries_reservation_section',
+        'type'        => 'url',
+    )
+);
+}
+
+add_action(
+    'customize_register',
+    'aries_reservation_customize'
+);/* =========================
+   SNS設定
+========================= */
+
+function aries_sns_customize($wp_customize) {
+
+    $wp_customize->add_section(
+        'aries_sns_section',
+        array(
+            'title'    => 'SNS',
+            'priority' => 70,
+        )
+    );
+
+    // Instagram
+    $wp_customize->add_setting(
+        'aries_sns_instagram',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_sns_instagram',
+        array(
+            'label'   => 'Instagram URL',
+            'section' => 'aries_sns_section',
+            'type'    => 'url',
+        )
+    );
+
+    // Facebook
+    $wp_customize->add_setting(
+        'aries_sns_facebook',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_sns_facebook',
+        array(
+            'label'   => 'Facebook URL',
+            'section' => 'aries_sns_section',
+            'type'    => 'url',
+        )
+    );
+
+    // X
+    $wp_customize->add_setting(
+        'aries_sns_x',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'esc_url_raw',
+        )
+    );
+
+    $wp_customize->add_control(
+        'aries_sns_x',
+        array(
+            'label'   => 'X URL',
+            'section' => 'aries_sns_section',
+            'type'    => 'url',
+        )
+    );
+}
+
+add_action(
+    'customize_register',
+    'aries_sns_customize'
+);/* =========================
+   ナビゲーション設定
+========================= */
+
+function aries_navigation_customize($wp_customize) {
+
+    $wp_customize->add_section(
+        'aries_navigation_section',
+        array(
+            'title'    => 'ナビゲーション',
+            'priority' => 65,
+        )
+    );
+
+    $nav_items = array(
+    'home'        => 'ホーム',
+    'about'       => 'お店について',
+    'menu'        => 'メニュー',
+    'gallery'     => 'ギャラリー',
+    'access'      => 'アクセス',
+    'reservation' => '予約',
+);
+
+    foreach ($nav_items as $key => $label) {
+
+        $wp_customize->add_setting(
+            'aries_nav_' . $key,
+            array(
+                'default'           => $label,
+                'sanitize_callback' => 'sanitize_text_field',
+            )
+        );
+
+        $wp_customize->add_control(
+            'aries_nav_' . $key,
+            array(
+                'label'   => $label . ' 表示名',
+                'section' => 'aries_navigation_section',
+                'type'    => 'text',
+            )
+        );
+    }
+}
+
+add_action(
+    'customize_register',
+    'aries_navigation_customize'
 );

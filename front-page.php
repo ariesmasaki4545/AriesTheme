@@ -1,21 +1,7 @@
-<?php get_header(); ?><?php
-if ( have_posts() ) :
-    while ( have_posts() ) :
-        the_post();
-?>
+<?php get_header(); ?>
 
-<div class="page-content">
 
-    <?php the_content(); ?>
-
-</div>
-
-<?php
-    endwhile;
-endif;
-?>
-
-<main style="max-width:1200px;margin:40px auto;padding:20px;">
+<main>
 <section
     class="hero"
     style="
@@ -28,7 +14,10 @@ endif;
    <div class="hero-content" style="text-align: <?php echo esc_attr(get_theme_mod('aries_hero_alignment', 'center')); ?>;">
 
         <p class="hero-label">
-    <?php echo esc_html(get_theme_mod('aries_shop_name', '店舗名')); ?>
+    <?php echo esc_html(get_theme_mod(
+        'aries_hero_label',
+        'ORIGINAL WEB DESIGN'
+    )); ?>
 </p>
 
         <h1>
@@ -42,26 +31,337 @@ endif;
 
 <p class="hero-text" style="text-align: inherit;">
     <?php echo nl2br(esc_html(get_theme_mod(
-        'aries_hero_text',
-        'デザインと機能性を両立した、オリジナルホームページを制作します。'
+       'aries_hero_text',
+'デザインと機能性を両立した、オリジナルホームページを制作します。'
     ))); ?>
 </p>
-        <a class="hero-button" href="#contact">
-            お問い合わせ
-        </a>
+      <a class="hero-button" href="<?php echo esc_url(get_theme_mod('aries_hero_button_url', '#contact')); ?>">
+    <?php echo esc_html(get_theme_mod(
+        'aries_hero_button',
+        'お問い合わせ'
+    )); ?>
+</a>
 
     </div>
 
 </section>
 
-</main>
 
-<?php get_footer(); ?>
+<section id="menu" class="menu-section">
 
-<p class="section-label"><?php echo esc_html(get_theme_mod('aries_service_label', 'SERVICE')); ?></p>
+    <div class="section-inner">
+
+        <div class="section-heading">
+            <p class="section-label">
+    <?php echo esc_html(get_theme_mod('aries_menu_label', 'MENU')); ?>
+</p>
+
+<h2>
+    <?php echo esc_html(get_theme_mod('aries_menu_title', 'メニュー')); ?>
+</h2>
+        </div>
+
+        <div class="menu-grid">
+
+            <?php for ($i = 1; $i <= 6; $i++) : ?>
+
+                <?php
+                $menu_name = get_theme_mod('aries_menu_' . $i . '_name');
+                $menu_description = get_theme_mod('aries_menu_' . $i . '_description');
+                $menu_price = get_theme_mod('aries_menu_' . $i . '_price');
+                $menu_image = get_theme_mod('aries_menu_' . $i . '_image');
+                $menu_category = get_theme_mod('aries_menu_' . $i . '_category');
+?>
+
+                <?php if ($menu_name) : ?>
+                    <?php if ($menu_category) : ?>
+    <p class="menu-category">
+        <?php echo esc_html($menu_category); ?>
+    </p>
+<?php endif; ?>
+
+                    <article class="menu-card <?php echo get_theme_mod('aries_menu_' . $i . '_recommended', false) ? 'is-recommended' : ''; ?>">
+                        <?php if (get_theme_mod('aries_menu_' . $i . '_recommended', false)) : ?>
+    <div class="menu-recommended">
+        おすすめ
+    </div>
+<?php endif; ?>
+
+                        <?php if ($menu_image) : ?>
+
+                            <div class="menu-image">
+                                <?php
+                                echo wp_get_attachment_image(
+                                    $menu_image,
+                                    'large',
+                                    false,
+                                    array(
+                                        'class' => 'menu-image-photo'
+                                    )
+                                );
+                                ?>
+                            </div>
+
+                        <?php endif; ?>
+
+                        <div class="menu-content">
+
+                            <h3>
+                                <?php echo esc_html($menu_name); ?>
+                            </h3>
+
+                            <?php if ($menu_description) : ?>
+                                <p>
+                                    <?php echo nl2br(esc_html($menu_description)); ?>
+                                </p>
+                            <?php endif; ?>
+
+                            <?php if ($menu_price) : ?>
+                                <p class="menu-price">
+                                    <?php echo esc_html($menu_price); ?>
+                                </p>
+                            <?php endif; ?>
+
+                        </div>
+
+                    </article>
+
+                <?php endif; ?>
+
+            <?php endfor; ?>
+
+        </div>
+
+    </div>
+
+</section>
+<section id="access" class="access-section">
+
+    <div class="section-inner">
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                <?php echo esc_html(get_theme_mod('aries_access_label', 'ACCESS')); ?>
+            </p>
+
+            <h2>
+                <?php echo esc_html(get_theme_mod('aries_access_title', 'アクセス')); ?>
+            </h2>
+
+        </div>
+
+        <?php
+        $access_map_url = get_theme_mod('aries_access_map_url');
+        ?>
+
+        <?php if ($access_map_url) : ?>
+
+            <div class="access-map">
+                <iframe
+                    src="<?php echo esc_url($access_map_url); ?>"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                </div>
+           <div class="access-info">
+
+    <p>
+        <strong>住所</strong><br>
+        <?php echo esc_html(get_theme_mod('aries_shop_address', '')); ?>
+    </p>
+
+    <p>
+        <strong>電話番号</strong><br>
+        <a href="tel:<?php echo esc_attr(get_theme_mod('aries_shop_phone', '')); ?>">
+            <?php echo esc_html(get_theme_mod('aries_shop_phone', '')); ?>
+        </a>
+    </p>
+
+    <p>
+        <strong>営業時間</strong><br>
+        <?php echo esc_html(get_theme_mod('aries_shop_hours', '')); ?>
+    </p>
+    <p>
+    <strong>定休日</strong><br>
+    <?php echo esc_html(get_theme_mod('aries_shop_holiday', '')); ?>
+</p>
+
+</div> 
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
+
+<section id="reservation" class="reservation-section">
+
+    <div class="section-inner">
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                <?php echo esc_html(get_theme_mod('aries_reservation_label', 'RESERVATION')); ?>
+            </p>
+
+            <h2>
+                <?php echo esc_html(get_theme_mod('aries_reservation_title', 'ご予約・お問い合わせ')); ?>
+            </h2>
+
+        </div>
+
+        <div class="reservation-box">
+
+            <p>
+                お電話・LINE・予約サイトからお気軽にご予約ください。
+            </p>
+
+            <?php
+            $reservation_url = get_theme_mod('aries_reservation_url');
+            ?>
+
+            <?php if ($reservation_url) : ?>
+
+                <a
+                    class="reservation-button"
+                    href="<?php echo esc_url($reservation_url); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    <?php echo esc_html(get_theme_mod('aries_reservation_button', '予約する')); ?>
+
+                </a>
+
+            <?php else : ?>
+
+                <a
+                    class="reservation-button"
+                    href="tel:<?php echo esc_attr(get_theme_mod('aries_shop_phone', '')); ?>">
+
+                    <?php echo esc_html(get_theme_mod('aries_reservation_button', '電話で予約する')); ?>
+
+                </a>
+
+            <?php endif; ?>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="sns" class="sns-section">
+
+    <div class="section-inner">
+
+        <div class="section-heading">
+
+            <p class="section-label">SNS</p>
+
+            <h2>SNS</h2>
+
+        </div>
+
+        <div class="sns-links">
+
+            <?php
+            $instagram = get_theme_mod('aries_sns_instagram');
+            $facebook  = get_theme_mod('aries_sns_facebook');
+            $x         = get_theme_mod('aries_sns_x');
+            ?>
+
+            <?php if ($instagram) : ?>
+                <a
+                    class="sns-link"
+                    href="<?php echo esc_url($instagram); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Instagram
+                </a>
+            <?php endif; ?>
+
+            <?php if ($facebook) : ?>
+                <a
+                    class="sns-link"
+                    href="<?php echo esc_url($facebook); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Facebook
+                </a>
+            <?php endif; ?>
+
+            <?php if ($x) : ?>
+                <a
+                    class="sns-link"
+                    href="<?php echo esc_url($x); ?>"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    X
+                </a>
+            <?php endif; ?>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="gallery" class="gallery-section">
+
+    <div class="section-inner">
+
+        <div class="section-heading">
+            <p class="section-label">
+    <?php echo esc_html(get_theme_mod('aries_gallery_label', 'GALLERY')); ?>
+</p>
+
+<h2>
+    <?php echo esc_html(get_theme_mod('aries_gallery_title', '店舗ギャラリー')); ?>
+</h2>
+        </div>
+
+        <div class="gallery-grid">
+
+            <?php for ($i = 1; $i <= 6; $i++) : ?>
+
+                <?php
+                $gallery_image = get_theme_mod('aries_gallery_' . $i);
+                ?>
+
+                <?php if ($gallery_image) : ?>
+
+                    <div class="gallery-item">
+
+                        <?php
+                        echo wp_get_attachment_image(
+                            $gallery_image,
+                            'large',
+                            false,
+                            array(
+                                'class' => 'gallery-image'
+                            )
+                        );
+                        ?>
+
+                    </div>
+
+                <?php endif; ?>
+
+            <?php endfor; ?>
+
+        </div>
+
+    </div>
+
+</section>
+<section id="service" class="service-section">
 
     <div class="section-heading" style="text-align: <?php echo esc_attr(get_theme_mod('aries_service_alignment', 'center')); ?>;">
-        <p class="section-label">SERVICE</p>
+
+            <p class="section-label">SERVICE</p>
         <h2><?php echo esc_html(get_theme_mod('aries_service_heading', 'サービス')); ?></h2>
        <p>
     <?php echo nl2br(esc_html(get_theme_mod(
@@ -74,7 +374,7 @@ endif;
     <div class="service-grid">
 
         <article class="service-card">
-            <div class="service-number">01</div>
+            
             <h3>
     <?php echo esc_html(get_theme_mod(
         'aries_service_1_title',
@@ -91,7 +391,7 @@ endif;
         </article>
 
         <article class="service-card">
-            <div class="service-number">02</div>
+        
             <h3>
     <?php echo esc_html(get_theme_mod(
         'aries_service_2_title',
@@ -105,9 +405,10 @@ endif;
         'パソコンだけでなく、スマートフォンでも見やすいサイトを制作します。'
     ))); ?>
 </p>
+</article>
 
         <article class="service-card">
-            <div class="service-number">03</div>
+           
             <h3>
     <?php echo esc_html(get_theme_mod(
         'aries_service_3_title',
@@ -126,6 +427,7 @@ endif;
     </div>
 
 </section>
+
 <section id="about" class="about-section">
 
     <div class="about-inner">
@@ -164,20 +466,42 @@ endif;
     ))); ?>
 </p>
 
-                <a class="about-button" href="#contact">
-                    お問い合わせはこちら
-                </a>
+              <a class="about-button" href="<?php echo esc_url(get_theme_mod('aries_about_button_url', '#reservation')); ?>">
+    <?php echo esc_html(get_theme_mod(
+        'aries_about_button',
+        '予約・お問い合わせはこちら'
+    )); ?>
+</a>
             </div>
 
             <div class="about-image">
-                <div class="about-image-inner">
-                    AriesTheme
-                </div>
-            </div>
 
+    <?php
+    $about_image = get_theme_mod('aries_about_image');
+    ?>
+
+    <?php if ($about_image) : ?>
+
+        <img
+            src="<?php echo esc_url(wp_get_attachment_image_url($about_image, 'large')); ?>"
+            alt="<?php echo esc_attr(get_theme_mod('aries_about_title', '私たちについて')); ?>"
+        >
+
+    <?php else : ?>
+
+        <div class="about-image-inner">
+            AriesTheme
         </div>
 
+    <?php endif; ?>
+
+</div>
+
+                </div>
+
     </div>
+
+</section>
 
 <section id="contact" class="contact-section">
 
@@ -191,7 +515,7 @@ endif;
                 echo esc_html(
                     get_theme_mod(
                         'aries_contact_title',
-                        'お問い合わせ'
+                        'ご予約・お問い合わせ'
                     )
                 );
                 ?>
@@ -203,7 +527,8 @@ endif;
                     esc_html(
                         get_theme_mod(
                             'aries_contact_text',
-                            'ホームページ制作についてお気軽にご相談ください。'
+                            
+'ご予約・お問い合わせはこちらからどうぞ。'
                         )
                     )
                 );
@@ -219,20 +544,34 @@ endif;
                 <?php
                 echo esc_html(
                     get_theme_mod(
-                        'aries_contact_box_title',
-                        'ホームページ制作のご相談'
+                       'aries_contact_box_title',
+'ご予約・お問い合わせ'
                     )
                 );
                 ?>
             </h3>
+            <p class="shop-phone">
+    TEL：
+    <a href="tel:<?php echo esc_attr(get_theme_mod('aries_shop_phone', '000-0000-0000')); ?>">
+        <?php echo esc_html(get_theme_mod('aries_shop_phone', '000-0000-0000')); ?>
+    </a>
+</p>
+<p class="shop-address">
+    住所：
+    <?php echo esc_html(get_theme_mod('aries_shop_address', '〒000-0000 新潟県○○市○○')); ?>
+</p>
+<p class="shop-hours">
+    営業時間：
+    <?php echo esc_html(get_theme_mod('aries_shop_hours', '11:00〜21:00')); ?>
+</p>
 
             <p>
                 <?php
                 echo nl2br(
                     esc_html(
                         get_theme_mod(
-                            'aries_contact_box_text',
-                            '制作内容・料金・納期など、まずはお気軽にお問い合わせください。'
+                           'aries_contact_box_text',
+'ご予約やお問い合わせについて、お気軽にご連絡ください。'
                         )
                     )
                 );
@@ -241,9 +580,12 @@ endif;
 
             <a
                 class="contact-button"
-                href="mailto:<?php echo esc_attr(get_theme_mod('aries_contact_email', 'example@example.com')); ?>"
+                href="<?php echo esc_url(get_theme_mod('aries_contact_button_url', 'mailto:example@example.com')); ?>"
             >
-                メールでお問い合わせ
+                <?php echo esc_html(get_theme_mod(
+    'aries_contact_button',
+    'メールでお問い合わせ'
+)); ?>
             </a>
 
         </div>
@@ -251,223 +593,7 @@ endif;
     </div>
 
 </section>
-<section id="works" class="works-section">
 
-    <div class="section-inner">
+</main>
 
-        <div class="section-heading" style="text-align: <?php echo esc_attr(get_theme_mod('aries_works_alignment', 'center')); ?>;">
-
-            <p class="section-label"><?php echo esc_html(get_theme_mod('aries_works_label', 'WORKS')); ?></p>
-
-            <h2><?php echo esc_html(get_theme_mod('aries_works_title', '制作実績')); ?></h2>
-
-            <p>
-    <?php echo nl2br(esc_html(get_theme_mod(
-        'aries_works_description',
-        'これまでに制作したホームページをご紹介します。'
-    ))); ?>
-            </p>
-
-        </div>
-
-
-        <div class="works-grid">
-
-            <article class="work-card">
-
-                <div class="work-image">
-    <?php
-    $work_image_1 = get_theme_mod('aries_work_1_image');
-
-    if ($work_image_1) :
-        echo wp_get_attachment_image(
-            $work_image_1,
-            'large',
-            false,
-            array(
-                'class' => 'work-image-photo'
-            )
-        );
-    else :
-    ?>
-        <div class="work-image-inner">
-            WORK 01
-        </div>
-    <?php endif; ?>
-</div>
-
-                <div class="work-content">
-
-                    <p class="work-category">
-    <?php
-    echo esc_html(
-        get_theme_mod(
-            'aries_work_1_category',
-            'WEB DESIGN'
-        )
-    );
-    ?>
-</p>
-
-                    <h3>
-    <?php
-    echo esc_html(
-        get_theme_mod(
-            'aries_work_1_title',
-            '美容サロンホームページ'
-        )
-    );
-    ?>
-</h3>
-
-                    <p>
-    <?php
-    echo nl2br(
-        esc_html(
-            get_theme_mod(
-                'aries_work_1_text',
-                'サロンの魅力やサービスを分かりやすく伝える、オリジナルホームページ。'
-            )
-        )
-    );
-    ?>
-</p>
-
-                </div>
-
-            </article>
-
-
-            <article class="work-card">
-
-              <div class="work-image">
-    <?php
-    $work_image_2 = get_theme_mod('aries_work_2_image');
-
-    if ($work_image_2) :
-        echo wp_get_attachment_image(
-            $work_image_2,
-            'large',
-            false,
-            array(
-                'class' => 'work-image-photo'
-            )
-        );
-    else :
-    ?>
-        <div class="work-image-inner">
-            WORK 02
-        </div>
-    <?php endif; ?>
-</div>
-
-                <div class="work-content">
-
-                    <p class="work-category">
-    <?php
-    echo esc_html(
-        get_theme_mod(
-            'aries_work_2_category',
-            'WEB DESIGN'
-        )
-    );
-    ?>
-</p>
-
-                    <h3>
-    <?php
-    echo esc_html(
-        get_theme_mod(
-            'aries_work_2_title',
-            '店舗ホームページ'
-        )
-    );
-    ?>
-</h3>
-
-                    <p>
-    <?php
-    echo nl2br(
-        esc_html(
-            get_theme_mod(
-                'aries_work_2_text',
-                'お店の世界観やサービスを整理し、来店につながるホームページ。'
-            )
-        )
-    );
-    ?>
-</p>
-
-                </div>
-
-            </article>
-
-
-            <article class="work-card">
-
-                <div class="work-image">
-    <?php
-    $work_image_3 = get_theme_mod('aries_work_3_image');
-
-    if ($work_image_3) :
-        echo wp_get_attachment_image(
-            $work_image_3,
-            'large',
-            false,
-            array(
-                'class' => 'work-image-photo'
-            )
-        );
-    else :
-    ?>
-        <div class="work-image-inner">
-            WORK 03
-        </div>
-    <?php endif; ?>
-</div>
-                <div class="work-content">
-
-                   <p class="work-category">
-    <?php
-    echo esc_html(
-        get_theme_mod(
-            'aries_work_3_category',
-            'CORPORATE'
-        )
-    );
-    ?>
-</p>
-
-                    <h3>
-    <?php
-    echo esc_html(
-        get_theme_mod(
-            'aries_work_3_title',
-            '企業ホームページ'
-        )
-    );
-    ?>
-</h3>
-
-                    <p>
-    <?php
-    echo nl2br(
-        esc_html(
-            get_theme_mod(
-                'aries_work_3_text',
-                '企業の強みやサービスを分かりやすく伝えるコーポレートサイト。'
-            )
-        )
-    );
-    ?>
-</p>
-
-                </div>
-
-            </article>
-
-        </div>
-
-    </div>
-
-</section>
+<?php get_footer(); ?>
